@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Familia Delgado</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #fff0f5;
+      text-align: center;
+    }
+
+    h1 {
+      background: linear-gradient(to right, #ff69b4, #ff1493);
+      color: white;
+      padding: 20px;
+      margin: 0;
+      font-size: 3em;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .destacadas {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .destacadas img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: slide 20s infinite;
+    }
+
+    @keyframes slide {
+      0% {transform: translateX(0%);}
+      20% {transform: translateX(-100%);}
+      40% {transform: translateX(-200%);}
+      60% {transform: translateX(-300%);}
+      80% {transform: translateX(-400%);}
+      100% {transform: translateX(0%);}
+    }
+
+    h2 {
+      margin-top: 40px;
+      color: #ff1493;
+      font-size: 2em;
+    }
+
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .galeria img {
+      width: 100px;
+      height: 100px;
+      margin: 5px;
+      cursor: pointer;
+      border: 4px solid #ff69b4;
+      border-radius: 10px;
+      transition: transform 0.3s;
+      object-fit: cover;
+    }
+
+    .galeria img:hover {
+      transform: scale(2.5);
+    }
+
+    .visor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      flex-direction: column;
+    }
+
+    .visor img {
+      max-width: 90%;
+      max-height: 80%;
+      border: 5px solid white;
+      border-radius: 10px;
+    }
+
+    .nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3em;
+      color: white;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .nav.left {
+      left: 10px;
+    }
+
+    .nav.right {
+      right: 10px;
+    }
+
+    #intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: white;
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeOut 2s ease-in-out forwards;
+    }
+
+    #intro img {
+      width: 800px;
+      height: auto;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+  </style>
+</head>
+<body>
+  <div id="intro">
+    <img src="https://static.vecteezy.com/system/resources/previews/013/445/352/non_2x/happy-birthday-in-spain-lettering-in-spanish-with-cake-and-curlicues-illustration-vector.jpg" alt="Cargando...">
+  </div>
+
+  <h1>Fiesta de Cumpleaños - Blanca Estela Delgado Flores</h1><h4><b><u>Creado por Gustavo Vega</u></b></h4>
+
+  <div class="destacadas">
+    <img src="27.jpeg" alt="Destacada 1" />
+    <img src="39.jpeg" alt="Destacada 2" />
+    <img src="43.jpeg" alt="Destacada 3" />
+    <img src="53.jpeg" alt="Destacada 4" />
+    <img src="62.jpeg" alt="Destacada 5" />
+    <img src="65.jpeg" alt="Destacada 6" />
+    <img src="86.jpeg" alt="Destacada 7" />
+    <img src="96.jpeg" alt="Destacada 8" />
+    <img src="99.jpeg" alt="Destacada 9" />
+  </div>
+
+  <h2>Galería de Imágenes</h2>
+  <div class="galeria"></div>
+
+  <!-- Visor de Imágenes -->
+  <div class="visor" id="visorImagen">
+    <span class="nav left" onclick="navegarImagen(-1)">&#10094;</span>
+    <img id="imagenGrande" src="" alt="Imagen Grande" />
+    <span class="nav right" onclick="navegarImagen(1)">&#10095;</span>
+  </div>
+
+  <script>
+    const imagenes = [];
+
+    for (let i = 1; i <= 99; i++) {
+      const ruta = `${i}.jpeg`;
+      const img = document.createElement("img");
+      img.src = ruta;
+      img.alt = `Imagen ${i}`;
+      img.onclick = () => abrirVisorImagen(i - 1);
+      document.querySelector(".galeria").appendChild(img);
+      imagenes.push(ruta);
+    }
+
+    let indiceImg = 0;
+
+    function abrirVisorImagen(i) {
+      indiceImg = i;
+      document.getElementById("imagenGrande").src = imagenes[i];
+      document.getElementById("visorImagen").style.display = "flex";
+    }
+
+    function navegarImagen(dir) {
+      indiceImg = (indiceImg + dir + imagenes.length) % imagenes.length;
+      document.getElementById("imagenGrande").src = imagenes[indiceImg];
+    }
+
+    document.getElementById("visorImagen").onclick = function(e) {
+      if (e.target === this) this.style.display = "none";
+    }
+  </script>
+</body>
+</html>
